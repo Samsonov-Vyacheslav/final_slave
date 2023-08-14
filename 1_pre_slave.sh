@@ -18,7 +18,6 @@ yum install -y sshpass
 #Настройка статического IP
 UUID=`cat /etc/sysconfig/network-scripts/ifcfg-e* | awk -F "=" '/UUID/ {print $2}'`
 DEVICE=`cat /etc/sysconfig/network-scripts/ifcfg-e* | awk -F "=" '/DEVICE/ {print $2}' | sed 's/\"//g'`
-#yes | cp /etc/sysconfig/network-scripts/ifcfg-e* /etc/sysconfig/network-scripts/ifcfg-$DEVICE.back
 
 echo "TYPE=\"Ethernet\"
 PROXY_METHOD=\"none\"
@@ -43,6 +42,9 @@ ONBOOT=\"yes\"
 ">/etc/sysconfig/network-scripts/ifcfg-$DEVICE
 
 systemctl restart network
+
+#Установка GIT
+yum install -y git
 
 #Перезагрузка для применения настроек сети
 read -p "Reboot now (y/n)"
